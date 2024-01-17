@@ -101,13 +101,22 @@
 
     <!-- page_creada.html -->
         {% for page in pages %}
-        <div>
-        <h2>{{ page.title }}</h2>
+            <div>
+                <h2>{{ page.title }}</h2>
+                <div id="content-{{ page.id }}">
+                <p>{{ page.content|truncatewords:50 }}</p>
+                </div>
+                <button class="leer-mas" data-page-id="{{ page.id }}" data-author="{{ page.author }}" data-image-url="{{ page.image.url }}" data-title="{{ page.title }}">Leer más</button>
+            </div>
+
+
+        <!-- <h2>{{ page.title }}</h2>
         <p>Author: {{ page.author }}</p>
         <p>Content: {{ page.content }}</p>
         <img src="{{ page.image.url }}" alt="{{ page.title }}">
-        </div>
-
+        </div> -->
+    
+    
         <a href="{% url 'eliminar_page' page.id %}">Eliminar</a>
         <a href="{% url 'editar_page' page.id %}">Editar Page</a>
         {% endfor %}
@@ -121,5 +130,33 @@
   <p>Contenido adicional de la página de evento agregado...</p>
    {% endblock %}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const leerMasButtons = document.querySelectorAll('.leer-mas');
+      
+          leerMasButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              const pageId = this.getAttribute('data-page-id');
+              const contentContainer = document.querySelector(`#content-${pageId}`);
+              const author = this.getAttribute('data-author');
+              const imageUrl = this.getAttribute('data-image-url');
+              const title = this.getAttribute('data-title');
+      
+              contentContainer.innerHTML = `
+                <p>Author: ${author}</p>
+                <img src="${imageUrl}" alt="${title}">
+              `;
+            });
+          });
+        });
+      </script>
+      
 </body>
 </html>
+
+
+
+
+
+

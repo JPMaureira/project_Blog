@@ -71,15 +71,18 @@
 <body>
     <h1>Bienvenido al Blog</h1>
     <div class="container">
-        {% load static %}
-   <img src="{% static 'blog.png' %}" alt="Imagen del blog">
+
 
         <!-- ... Agrega más contenido según sea necesario -->
 
         <div class="button-container">
             <a href="{% url 'login' %}" class="btn btn-primary button-purple">Iniciar Sesión</a>
             <a href="{% url 'register' %}" class="btn btn-success button-purple">Regístrate</a>
+            <a href="{% url 'about' %}" class="btn btn-info button-purple">Acerca de mi</a>
         </div>
+
+        <!-- Agrega el enlace a about.html -->
+        
     </div>
     <!-- Agrega scripts o enlaces a scripts al final del body si es necesario -->
 </body>
