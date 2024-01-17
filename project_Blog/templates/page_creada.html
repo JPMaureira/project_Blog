@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Agregado</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .messages li {
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+  <h2>Pages Agregadas</h2>
+  {% if messages %} 
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  <h3>Lista de Pages:</h3>
+  <ul>
+    <!-- Agrega el formulario de búsqueda -->
+    <form method="get" action="">
+        {{ form_buscar }}
+        <button type="submit">Buscar</button>
+    </form>
+    <p>recuerda buscar por titulo o autor</p>
+
+
+    <!-- page_creada.html -->
+        {% for page in pages %}
+        <div>
+        <h2>{{ page.title }}</h2>
+        <p>Author: {{ page.author }}</p>
+        <p>Content: {{ page.content }}</p>
+        <img src="{{ page.image.url }}" alt="{{ page.title }}">
+        </div>
+
+        <a href="{% url 'eliminar_page' page.id %}">Eliminar</a>
+        <a href="{% url 'editar_page' page.id %}">Editar Page</a>
+        {% endfor %}
+  </ul>
+
+
+  <form method="get" action="{% url 'create_page' %}">
+    <button type="submit">Agregar otro evento</button>
+  </form>
+
+  <p>Contenido adicional de la página de evento agregado...</p>
+   {% endblock %}
+    </div>
+</body>
+</html>
