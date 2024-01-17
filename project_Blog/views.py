@@ -16,6 +16,7 @@ from django.shortcuts import render, redirect
 from .forms import UserRegisterForm,PageForm
 from .models import Page
 from .forms import BuscarEventoForm
+from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
@@ -80,6 +81,10 @@ def user_logout(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def perfiles(request):
+    usuarios = User.objects.all()
+    return render(request, 'perfiles.html', {'usuarios': usuarios})
 
 def pages(request):
     return render(request, 'pages.html')

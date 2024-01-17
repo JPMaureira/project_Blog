@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import  home, login_request, register, panel,about,create_page,pages,page_creada,eliminar_page,editar_page
+from .views import  home, login_request, register, panel,about,create_page,pages,page_creada,eliminar_page,editar_page,perfiles
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +31,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('panel/', panel, name='panel'),
+    path('perfiles/', perfiles, name='perfiles'),
     path('about/', about, name='about'),
     path('create_page/', create_page, name='create_page'),
     path('pages/', pages, name='pages'),
