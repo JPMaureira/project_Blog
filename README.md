@@ -28,9 +28,15 @@ El proyecto utiliza SQLite como base de datos por defecto. Puedes configurar la 
            'NAME': BASE_DIR / "db.sqlite3",
        }
    }
-
+# Aplicar las migraciones iniciales:
+python manage.py makemigrations
 python manage.py migrate
+
+# Crear un superusuario (opcional):
 
 python manage.py createsuperuser
 
+# Iniciar el servidor de desarrollo:
+
 python manage.py runserver
+
