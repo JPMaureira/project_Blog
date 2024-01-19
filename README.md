@@ -1,6 +1,3 @@
-
-
-
 # Blog en Django
 
 Este es un blog simple creado con Django y Python, siguiendo el patrón Modelo Vista Controlador (MVC). Permite la creación, edición, eliminación y listado de páginas que se publican en el blog. La base de datos está implementada con SQLite.
