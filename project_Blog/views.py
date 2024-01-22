@@ -17,6 +17,7 @@ from .forms import UserRegisterForm,PageForm
 from .models import Page
 from .forms import BuscarEventoForm
 from django.contrib.auth.models import User
+from .forms import UserEditForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -141,3 +142,15 @@ def editar_page(request, page_id):
         form = PageForm(instance=page)
 
     return render(request, 'editar_page.html', {'form': form, 'page_id': page_id})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('panel')  # O la URL que desees después de la edición exitosa
+    else:
+        form = UserEditForm(instance=request.user)
+
+    return render(request, "edit_profile.html", {"form": form})

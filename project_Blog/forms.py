@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from .models import UsuarioPersonalizado
 from django.contrib.auth.models import User
 from .models import Page
+from django.contrib.auth.forms import UserChangeForm
 
 
 class UserRegisterForm(UserCreationForm):
@@ -25,3 +26,14 @@ class PageForm(forms.ModelForm):
 
 class BuscarEventoForm(forms.Form):
     busqueda = forms.CharField(label='Buscar evento', max_length=100)
+
+
+class UserEditForm(UserChangeForm):
+    password = None  # Elimina el campo de contraseña por defecto
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+    def clean_password(self):
+        # Limpia el campo de contraseña para evitar cambios no deseados
+        return None
