@@ -1,11 +1,45 @@
 <!-- edit_profile.html -->
 
-
 {% block content %}
-  <h2>Editar Perfil</h2>
+  <head>
+    <style>
+      /* Estilos CSS para el formulario */
+      form {
+        max-width: 400px;
+        margin: auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input, button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+   <center> <h2>Editar Perfil</h2>  </center>
+ 
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar cambios</button>
   </form>
 {% endblock %}
+
