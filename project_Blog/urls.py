@@ -39,7 +39,6 @@ urlpatterns = [
     path('eliminar_page/<int:page_id>/', eliminar_page, name='eliminar_page'),
     path('editar_page/<int:page_id>/', editar_page, name='editar_page'),
     path('edit_profile/', edit_profile, name='edit_profile'),
-
 ]
 
 # Configuración para servir archivos de medios en desarrollo

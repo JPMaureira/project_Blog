@@ -31,6 +31,7 @@ class UsuarioPersonalizado(AbstractUser):
     nombre = models.CharField(max_length=30, blank=True)
     email = models.EmailField()
     password = models.CharField(max_length=20, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     objects = UsuarioPersonalizadoManager()
 

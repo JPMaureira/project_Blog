@@ -11,10 +11,12 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput)
+    avatar = forms.ImageField(label="Avatar", required=False)
+
  
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2','avatar']
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
 
@@ -30,9 +32,10 @@ class BuscarEventoForm(forms.Form):
 
 class UserEditForm(UserChangeForm):
     password = None  # Elimina el campo de contraseña por defecto
+    avatar = forms.ImageField(label="Cambiar Avatar", required=False)
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email', 'first_name', 'last_name','avatar']
 
     def clean_password(self):
         # Limpia el campo de contraseña para evitar cambios no deseados

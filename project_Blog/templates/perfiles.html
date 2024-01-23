@@ -30,14 +30,23 @@
             overflow: hidden;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
+
+        img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <div style="max-width: 800px; margin: 0 auto;">
-        <h1>Listado de Usuarios</h1>
+        <h1>Perfiles de Usuario</h1>
         <ul>
             {% for usuario in usuarios %}
-                <li>{{ usuario.username }}</li>
+                <li>
+                    <img src="{{ usuario.usuario_personalizado.avatar.url }}" alt="{{ usuario.username }} Avatar" width="50">
+                    {{ usuario.username }}
+                </li>
             {% endfor %}
         </ul>
     </div>

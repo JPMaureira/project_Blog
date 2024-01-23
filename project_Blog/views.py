@@ -24,24 +24,36 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-# Vista de registro
+# # Vista de registro
+# def register(request):
+
+#       if request.method == 'POST':
+
+#             #form = UserCreationForm(request.POST)
+#             form = UserRegisterForm(request.POST)
+#             if form.is_valid():
+
+#                   username = form.cleaned_data['username']
+#                   form.save()
+#                   return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
+
+#       else:
+#             #form = UserCreationForm()       
+#             form = UserRegisterForm()     
+
+#       return render(request,"registro.html" ,  {"form":form})
+
 def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request, "panel.html", {"mensaje": "Usuario Creado :)"})
+    else:
+        form = UserRegisterForm()
 
-      if request.method == 'POST':
-
-            #form = UserCreationForm(request.POST)
-            form = UserRegisterForm(request.POST)
-            if form.is_valid():
-
-                  username = form.cleaned_data['username']
-                  form.save()
-                  return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
-
-      else:
-            #form = UserCreationForm()       
-            form = UserRegisterForm()     
-
-      return render(request,"registro.html" ,  {"form":form})
+    return render(request, "registro.html", {"form": form})
 
 
 def login_request(request):
@@ -143,10 +155,23 @@ def editar_page(request, page_id):
 
     return render(request, 'editar_page.html', {'form': form, 'page_id': page_id})
 
+# @login_required
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         form = UserEditForm(request.POST, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('panel')  # O la URL que desees después de la edición exitosa
+#     else:
+#         form = UserEditForm(instance=request.user)
+
+#     return render(request, "edit_profile.html", {"form": form})
+
+
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = UserEditForm(request.POST, instance=request.user)
+        form = UserEditForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('panel')  # O la URL que desees después de la edición exitosa
