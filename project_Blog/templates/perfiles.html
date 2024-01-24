@@ -44,8 +44,15 @@
         <ul>
             {% for usuario in usuarios %}
                 <li>
-                    <img src="{{ usuario.usuario_personalizado.avatar.url }}" alt="{{ usuario.username }} Avatar" width="50">
+                    <img src="{{usuario.avatar.url}}"  width="50">
                     {{ usuario.username }}
+                    <br>
+                    {{ usuario.email }}
+                    <br>
+                    {{ usuario.first_name }}
+                    <br>
+                    {{ usuario.last_name }}
+                 
                 </li>
             {% endfor %}
         </ul>

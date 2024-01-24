@@ -15,9 +15,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm,PageForm
 from .models import Page
-from .forms import BuscarEventoForm
+from .forms import BuscarEventoForm,UserEditForm
 from django.contrib.auth.models import User
-from .forms import UserEditForm
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -43,12 +43,26 @@ from django.contrib import messages
 
 #       return render(request,"registro.html" ,  {"form":form})
 
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             form.save()
+#             return render(request, "panel.html", {"mensaje": "Usuario Creado :)"})
+#     else:
+#         form = UserRegisterForm()
+
+#     return render(request, "registro.html", {"form": form})
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            form.save()
+            user = form.save(commit=False)  # No guardar inmediatamente para modificar el usuario
+            user.avatar = form.cleaned_data['avatar']  # Asignar el avatar manualmente
+            user.save()  # Ahora guardar el usuario con el avatar
+
             return render(request, "panel.html", {"mensaje": "Usuario Creado :)"})
     else:
         form = UserRegisterForm()
