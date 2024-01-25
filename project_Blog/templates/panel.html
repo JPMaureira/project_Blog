@@ -51,6 +51,16 @@
     <div class="container">
         <h1>Bienvenido al Blog</h1>
 
+        {% with user.avatar_set.first as miAvatar %}
+  
+        {% if miAvatar %}
+
+           <img src="{{ miAvatar.image.url }}" alt="No encontro la imagen" style="max-width: 100px;">
+
+        {% endif %}
+
+        {% endwith %}
+
         <!-- Agrega un formulario de logout -->
         <form method="post" action="{% url 'create_page' %}">
             {% csrf_token %}

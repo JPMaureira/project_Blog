@@ -7,6 +7,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Permission, Group
 from django.db import models
+from django.contrib.auth.models import User
 
 from django.contrib.auth.models import AbstractUser
 
@@ -34,7 +35,6 @@ class UsuarioPersonalizado(AbstractUser):
     objects = UsuarioPersonalizadoManager()
     groups = models.ManyToManyField(Group, verbose_name='groups', blank=True, related_name='custom_user_groups')
     user_permissions = models.ManyToManyField(Permission, verbose_name='user permissions', blank=True, related_name='custom_user_permissions')
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
 class Page(models.Model):
     title = models.CharField(max_length=200)
@@ -45,6 +45,10 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Avatar(models.Model):
+    usuario = models.ForeignKey(User, on_delete = models.CASCADE )
+    image = models.ImageField(upload_to="avatares", null= True, blank=True)
 
 
 

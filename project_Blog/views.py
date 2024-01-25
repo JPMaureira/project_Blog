@@ -18,30 +18,29 @@ from .models import Page
 from .forms import BuscarEventoForm,UserEditForm
 from django.contrib.auth.models import User
 
-
 from django.contrib.auth.decorators import login_required
-
 
 from django.contrib import messages
 
 # # Vista de registro
-# def register(request):
+def register(request):
 
-#       if request.method == 'POST':
+      if request.method == 'POST':
 
-#             #form = UserCreationForm(request.POST)
-#             form = UserRegisterForm(request.POST)
-#             if form.is_valid():
+            #form = UserCreationForm(request.POST)
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
 
-#                   username = form.cleaned_data['username']
-#                   form.save()
-#                   return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
+                  username = form.cleaned_data['username']
+                  form.save()
+                  return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
 
-#       else:
-#             #form = UserCreationForm()       
-#             form = UserRegisterForm()     
+      else:
+            #form = UserCreationForm()       
+            form = UserRegisterForm()     
 
-#       return render(request,"registro.html" ,  {"form":form})
+      return render(request,"registro.html" ,  {"form":form})
+
 
 # def register(request):
 #     if request.method == 'POST':
@@ -55,19 +54,6 @@ from django.contrib import messages
 
 #     return render(request, "registro.html", {"form": form})
 
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)  # No guardar inmediatamente para modificar el usuario
-            user.avatar = form.cleaned_data['avatar']  # Asignar el avatar manualmente
-            user.save()  # Ahora guardar el usuario con el avatar
-
-            return render(request, "panel.html", {"mensaje": "Usuario Creado :)"})
-    else:
-        form = UserRegisterForm()
-
-    return render(request, "registro.html", {"form": form})
 
 
 def login_request(request):
@@ -97,6 +83,7 @@ def panel(request):
     context = {"usuario": usuario}
     return render(request, "panel.html", context)
 
+
 def home(request):
     return render(request, 'home.html')
 
@@ -116,7 +103,7 @@ def perfiles(request):
 def pages(request):
     return render(request, 'pages.html')
 
-@login_required
+# @login_required
 def create_page(request):
     if request.method == 'POST':
         form = PageForm(request.POST, request.FILES)
@@ -130,7 +117,7 @@ def create_page(request):
         form = PageForm()
     return render(request, 'create_page.html', {'form': form})
 
-@login_required
+# @login_required
 def page_creada(request):
      
     messages_to_show = request.session.get('messages_to_show', [])
@@ -192,4 +179,5 @@ def edit_profile(request):
     else:
         form = UserEditForm(instance=request.user)
 
-    return render(request, "edit_profile.html", {"form": form})
+    return render(request, "edit_profile.html", {"form": form}) 
+

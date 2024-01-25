@@ -44,7 +44,7 @@
         <ul>
             {% for usuario in usuarios %}
                 <li>
-                    <img src="{{usuario.avatar.url}}"  width="50">
+                    
                     {{ usuario.username }}
                     <br>
                     {{ usuario.email }}
@@ -52,7 +52,6 @@
                     {{ usuario.first_name }}
                     <br>
                     {{ usuario.last_name }}
-                 
                 </li>
             {% endfor %}
         </ul>
