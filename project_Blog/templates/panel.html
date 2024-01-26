@@ -50,6 +50,13 @@
 <body>
     <div class="container">
         <h1>Bienvenido al Blog</h1>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+       {% endif %}
 
         {% with user.avatar_set.first as miAvatar %}
   

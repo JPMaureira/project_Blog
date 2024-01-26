@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# LOGIN_URL = '/login/'  # Ajusta la URL según tu configuración
+LOGIN_URL = '/login/'
 
 
 

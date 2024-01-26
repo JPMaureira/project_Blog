@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import  home, login_request, register, panel,about,create_page,pages,page_creada,eliminar_page,editar_page,perfiles,edit_profile
+from .views import  home, login_request, register, panel,about,create_page,pages,page_creada,eliminar_page,editar_page,perfiles,edit_profile,registro_ingresado
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,7 +39,8 @@ urlpatterns = [
     path('eliminar_page/<int:page_id>/', eliminar_page, name='eliminar_page'),
     path('editar_page/<int:page_id>/', editar_page, name='editar_page'),
     path('edit_profile/', edit_profile, name='edit_profile'),
-
+    path('registro_ingresado/', registro_ingresado, name='registro_ingresado'),
+    
 ]
 
 # Configuración para servir archivos de medios en desarrollo

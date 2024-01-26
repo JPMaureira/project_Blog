@@ -22,24 +22,22 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-# # Vista de registro
 def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)  # No guardar inmediatamente para modificar el usuario
+            username = form.cleaned_data['username']
+            user.save()  # Ahora guardar el usuario con el avatar
 
-      if request.method == 'POST':
+             # Agregar mensaje de éxito
+            messages.success(request, 'Usuario creado exitosamente. Primero, crea un post.')
 
-            #form = UserCreationForm(request.POST)
-            form = UserRegisterForm(request.POST)
-            if form.is_valid():
+            return render(request, "registro_ingresado.html", {"mensaje": "Usuario Creado :)"})
+    else:
+        form = UserRegisterForm()
 
-                  username = form.cleaned_data['username']
-                  form.save()
-                  return render(request,"panel.html" ,  {"mensaje":"Usuario Creado :)"})
-
-      else:
-            #form = UserCreationForm()       
-            form = UserRegisterForm()     
-
-      return render(request,"registro.html" ,  {"form":form})
+    return render(request, "registro.html", {"form": form})
 
 
 # def register(request):
@@ -76,7 +74,7 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request, "login.html", {"form": form})
 
-@login_required  # Este decorador asegura que solo los usuarios autenticados puedan acceder a la vista
+
 def panel(request):
    
     usuario = request.user
@@ -92,6 +90,8 @@ def user_logout(request):
     logout(request)
     return redirect('home.html')
 
+def  registro_ingresado(request):
+    return render(request, 'registro_ingresado.html')
 
 def about(request):
     return render(request, 'about.html')
@@ -117,7 +117,7 @@ def create_page(request):
         form = PageForm()
     return render(request, 'create_page.html', {'form': form})
 
-# @login_required
+
 def page_creada(request):
      
     messages_to_show = request.session.get('messages_to_show', [])
@@ -156,28 +156,31 @@ def editar_page(request, page_id):
 
     return render(request, 'editar_page.html', {'form': form, 'page_id': page_id})
 
-# @login_required
-# def edit_profile(request):
-#     if request.method == 'POST':
-#         form = UserEditForm(request.POST, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('panel')  # O la URL que desees después de la edición exitosa
-#     else:
-#         form = UserEditForm(instance=request.user)
-
-#     return render(request, "edit_profile.html", {"form": form})
-
-
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = UserEditForm(request.POST, request.FILES, instance=request.user)
+        form = UserEditForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('panel')  # O la URL que desees después de la edición exitosa
     else:
         form = UserEditForm(instance=request.user)
 
-    return render(request, "edit_profile.html", {"form": form}) 
+    return render(request, "edit_profile.html", {"form": form})
+
+
+
+
+
+
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         form = UserEditForm(request.POST, request.FILES, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('panel')  # O la URL que desees después de la edición exitosa
+#     else:
+#         form = UserEditForm(instance=request.user)
+
+#     return render(request, "edit_profile.html", {"form": form}) 
 

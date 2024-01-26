@@ -28,6 +28,7 @@ class UsuarioPersonalizadoManager(BaseUserManager):
 
         return self.create_user(email, password, nombre, **extra_fields)
 
+
 class UsuarioPersonalizado(AbstractUser):
     nombre = models.CharField(max_length=30, blank=True)
     email = models.EmailField()
@@ -35,6 +36,7 @@ class UsuarioPersonalizado(AbstractUser):
     objects = UsuarioPersonalizadoManager()
     groups = models.ManyToManyField(Group, verbose_name='groups', blank=True, related_name='custom_user_groups')
     user_permissions = models.ManyToManyField(Permission, verbose_name='user permissions', blank=True, related_name='custom_user_permissions')
+
 
 class Page(models.Model):
     title = models.CharField(max_length=200)
